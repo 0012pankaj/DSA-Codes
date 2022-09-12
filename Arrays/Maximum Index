@@ -1,0 +1,30 @@
+//GFG--------->Maximum Index
+class Solution{
+    
+    // A[]: input array
+    // N: size of array
+    // Function to find the maximum index difference.
+    static int maxIndexDiff(int A[], int N) { 
+        
+        // Your code here
+        
+     int md=0;
+     int i=0;
+     int j=N-1;
+     while(i<=j){
+         if(A[i]<=A[j]){
+             md=Math.max(md,j-i);
+             i++;
+             j=N-1;
+         }
+         else{
+             j--;
+         }
+     }
+     return md;
+   
+        
+    }
+}
+
+
