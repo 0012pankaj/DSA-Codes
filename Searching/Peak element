@@ -1,0 +1,23 @@
+//gfg---> using bineary search  TC-->O(log n)  Sp-->O(1)
+/*Complete the function below*/
+
+class Solution
+{
+	
+	public int peakElement(int[] arr,int n)
+    {
+        int low=0, high=n-1;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
+            if((mid==0||arr[mid-1]<=arr[mid]) && (mid==arr.length-1 || arr[mid+1]<=arr[mid]))
+               return mid;
+               if(arr[mid+1]>=arr[mid])  /* hint for this quection--> element which have higher value than mid if left                                              or  right we get peak at that side only*/
+                 low=mid+1;
+               else
+                 high=mid-1;
+            
+        }
+        return -1;
+    }
+}
