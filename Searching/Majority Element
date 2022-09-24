@@ -1,0 +1,33 @@
+//GFG--->
+class Solution                                                        //using MORAY'S VOTING ALGORITHUM   TC-->O(n)  sp-->O(1)
+{
+    static int majorityElement(int a[], int n)
+    {
+        // your code here
+        int res=0,count=1;
+        for(int i=0;i<n;i++)
+        {
+            if(a[res]==a[i])               
+              count++;
+            else
+              count--;
+                                                //find a candidate
+           if(count==0){
+               res=i;
+               count=1;
+           }
+        }
+        
+        count=0;
+        for(int i=0;i<n;i++)
+        {
+            if(a[res]==a[i])
+               count++;                        //check if it come more than size/2
+        }
+        
+        if(count>=(n/2)+1)
+          return a[res]; 
+          
+         return -1;
+    }
+}
