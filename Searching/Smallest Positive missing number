@@ -1,0 +1,29 @@
+//GFG-->  TC--O(n) SP-->(1)   best aproch
+                                                        //Function to find the smallest positive number missing from the array.
+    static int missingNumber(int arr[], int n)
+    {
+        for(int i=0;i<n;i++)                             //  idea-->mother's child on their chair
+                                 
+        {
+            int element=arr[i];
+            if(element>=1 && element<=n)                        //consider only 1 to n
+            {
+                int chair=arr[i]-1;                         //chair no. is always (element-1)
+                if(arr[chair]!= element)                 //if element is not on positon put it on
+                { 
+                    int temp=arr[chair];
+                    arr[chair]=arr[i];                //if element is not onthere respective 
+                    arr[i]=temp;                    //chair bring it by swaping
+                    i--;                             //--> point to remember i--
+                }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {                                       // check if any chair is empty or if a child is not on there respective chair
+            if(i+1 != arr[i]){ 
+                return i+1;                         //    than that child is missing
+            }
+        }
+        return n+1;
+    }
+}
