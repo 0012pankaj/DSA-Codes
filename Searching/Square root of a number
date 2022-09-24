@@ -1,0 +1,35 @@
+
+/*You are required to complete
+this function*/
+
+// Function to find square root
+// x: element to find square root
+class Solution
+{
+     long floorSqrt(long K)
+	 {                                  //using BINEARY SEARCH
+	                                    //TC--> O(log n)
+		// Your code here
+		 long l=0;
+         long h=Integer.MAX_VALUE;
+         long ans=1;
+        
+       while(l<=h)
+       {
+           long mid=l+(h-l)/2;
+           
+           if(mid*mid==K){
+               return  mid;
+           }
+           if(mid*mid<K){
+                l=mid+1;
+                ans=mid;
+           }
+            if(mid*mid>K){
+                h=mid-1;
+            
+             }
+      }
+        return ans;  
+	 }
+}
