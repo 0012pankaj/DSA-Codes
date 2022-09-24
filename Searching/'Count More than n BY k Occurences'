@@ -1,0 +1,25 @@
+
+class Solution 
+{
+    //Function to find all elements in array that appear more than n/k times.
+    public int countOccurence(int[] arr, int n, int k) 
+    {   int x=n/k;
+        
+       int[] count=new int[1000003];
+       for(int i=0;i<n;i++)
+       {
+           count[arr[i]]++;
+       }
+       int res=0;
+       for(int i=1;i<count.length;i++)
+       {
+           if(count[i]>x){
+               res++;
+           }
+       }
+       
+       
+       return res ;
+        
+    }
+}
