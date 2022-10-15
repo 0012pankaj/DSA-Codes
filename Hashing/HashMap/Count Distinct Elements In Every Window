@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Solution
+{
+    public static void main (String[] args) 
+    {
+        int arr[] = new int[]{10, 10, 5, 3, 20, 5};
+        
+        int n = arr.length;
+        int k=4;
+        printDistinct(arr, n, k);
+        
+    }
+    
+    static void printDistinct(int arr[], int n, int k)
+    {
+        HashMap<Integer, Integer> m=new HashMap<>(); 
+       
+        for (int i = 0; i < k; i++) { 
+            m.put(arr[i], m.getOrDefault(arr[i], 0) + 1);                 //made frequency map up to k
+        } 
+       
+        System.out.print(m.size()+" ");         //find size
+       
+        for (int i = k; i < n; i++) { 
+            
+            m.put(arr[i - k],  m.get(arr[i - k]) - 1);   //decrease frequency of the fitrst element in window
+            
+            if (m.get(arr[i - k]) == 0) { 
+                m.remove(arr[i-k]);                   //if first element frequency become 0 then remove it
+            }   
+            m.put(arr[i], m.getOrDefault(arr[i], 0) + 1); // continued by adding next element
+            
+            System.out.print(m.size()+" ");  
+        } 
+    }
+}
