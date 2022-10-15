@@ -1,0 +1,26 @@
+
+//User function Template for Java
+
+class Solution
+{
+    //Function to return list containing all the pairs having both
+    //negative and positive values of a number in the array.
+    public static ArrayList<Integer>findPairs(int arr[], int n) 
+    { 
+    	// code here.
+    	HashSet<Integer> h=new HashSet<Integer>();
+    
+    	ArrayList<Integer> l=new ArrayList<Integer>();
+    	for(int z:arr){
+    	    if(h.contains(-z)){
+    	       int pos=Math.max(z,-z);
+    	       int neg=Math.min(z,-z);
+    	       l.add(neg);
+    	       l.add(pos);
+    	    }
+    	    h.add(z);
+    	}
+    	
+    	return l;                                                             //TC-->O(n)  Sp-->O(n)
+    }
+}
