@@ -1,0 +1,53 @@
+class Solution{
+    // A1[] : the input array-1
+    // N : size of the array A1[]
+    // A2[] : the input array-2
+    // M : size of the array A2[]
+    
+    //Function to sort an array according to the other array.
+    public static int[] sortA1ByA2(int A1[], int N, int A2[], int M)
+    {
+        //Your code here
+         int arr[]=new int[N];
+         HashMap<Integer,Integer> hm=new HashMap<Integer,Integer>();
+         Set<Integer> hs = new HashSet<Integer>();
+         ArrayList<Integer> aa1=new ArrayList<Integer>();
+         ArrayList<Integer> aa2=new ArrayList<Integer>();
+      
+        for(int i=0;i<N;i++){ hm.put(A1[i],hm.getOrDefault(A1[i],0)+1);}
+        
+        for(int i = 0; i < M; i++){ hs.add(A2[i]);}
+        
+        for(int i=0;i<M;i++){
+            if(hm.containsKey(A2[i])){
+               for(int j=0;j<hm.get(A2[i]);j++)
+                 {
+                  aa1.add(A2[i]);
+                  }
+                  hm.remove(A2[i]);
+            }
+       }
+
+        for(Map.Entry x : hm.entrySet()){
+           for(int i=0;i<(Integer)x.getValue();i++){
+              aa2.add((Integer)x.getKey());
+          }
+       }
+
+       Collections.sort(aa2);
+        int r=0;
+        for(int i=0;i<aa1.size();i++)
+        {
+           arr[r++]=aa1.get(i);
+        }
+          for(int i=0;i<aa2.size();i++)
+        {
+           arr[r++]=aa2.get(i);
+        }
+         
+     return arr;    
+    }
+}
+
+//Expected Time Complexity: O(N * Log(N)).
+//Expected Auxiliary Space: O(N).
