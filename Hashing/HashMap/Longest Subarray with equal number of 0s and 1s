@@ -1,0 +1,35 @@
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+
+class Main
+{
+    public static void main (String[] args) {
+        int arr[] = new int[]{1, 1, 1, 0, 1, 0, 1, 1, 1};
+        int len = arr.length;            //IDEA: convert all zero 0-->-1 and then find the sum equals to zero
+        
+        System.out.println(largestZeroSubarray(arr, len));
+    }
+    
+    static int largestZeroSubarray(int arr[], int n)
+    {
+        Map<Integer, Integer> hm = new HashMap<Integer, Integer>();
+        int prefix_sum = 0, maxLen = 0;
+        for(int i = 0; i < n; i++)
+         arr[i] = (arr[i] == 0) ? -1 : 1;          // convert all 0 --> -1
+         
+        for(int i = 0; i < n; i++)
+        {                                          //To find zero sum we check if prefix sum exist in hashmap already, 
+            prefix_sum += arr[i];
+            if (prefix_sum == 0)
+             maxLen = i+1;                                  //(length is always i+1)
+             
+            if(hm.containsKey(prefix_sum))
+            {
+              maxLen=Math.max(maxLen,i-hm.get(prefix_sum));
+            }else
+             hm.put(prefix_sum, i);
+        }
+        return maxLen;     //4
+    }
+}
