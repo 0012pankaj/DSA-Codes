@@ -1,0 +1,20 @@
+  //Function to reverse a linked list.
+    Node reverseList(Node head)
+    {
+        // code here
+        if(head==null)return null;
+        if(head.next==null)return head;
+        Node pre=null;
+        Node cur=head;
+        Node nxt=null;
+        while(cur != null){
+           nxt=cur.next;
+           cur.next=pre;
+           pre=cur;
+           cur=nxt;
+            
+        }
+        return pre;
+    }
+    
+    TC--->O(n);
