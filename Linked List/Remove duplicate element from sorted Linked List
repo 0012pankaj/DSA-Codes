@@ -1,0 +1,19 @@
+ //Function to remove duplicates from sorted linked list.
+    Node removeDuplicates(Node head)     // we consider to node extra curr and prev
+    {
+	                       // Your code here
+     Node prev=head;
+     Node curr=head;
+     curr=curr.next;
+     while(curr!=null){
+         if(curr.data==prev.data){
+             prev.next=curr.next;
+         }else
+            prev=curr;
+            
+             curr=curr.next;
+         
+     }
+	
+	   return head;
+    }
