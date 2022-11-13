@@ -1,0 +1,21 @@
+ //Function to remove duplicates from unsorted linked list.
+    public Node removeDuplicates(Node head) 
+    {
+         // Your code here
+         HashSet<Integer> hs=new HashSet<Integer>();
+        
+        Node curr=head;
+        Node prev=head;
+        while(curr !=null){
+         
+            if(!hs.add(curr.data))           // if not go inside hashset then skip this and go on next node and point our previous node to that
+            { curr= curr.next;
+               prev.next=curr;
+                
+            }else{                          // if  go inside hashset then point it as previous and go on next node 
+                curr=curr.next;
+            }
+        }
+        return head;
+        
+        IDEA:if data is not go in hashset then we skip that in aur linklist 
