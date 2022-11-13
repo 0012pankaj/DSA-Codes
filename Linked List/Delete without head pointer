@@ -1,0 +1,13 @@
+ void deleteNode(Node del)    // wihout refference node #Head
+    {
+         // Your code here
+         while(del.next !=null){
+             del.data=del.next.data;
+             if(del.next.next==null) break;
+             del=del.next;
+         }
+         
+         del.next=null;
+    }
+    
+    IDEA: we just put value of next to current node repeat upto reach at last and put last node null
