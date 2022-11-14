@@ -1,0 +1,52 @@
+//Function to swap Kth node from beginning and end in a linked list.
+    Node swapkthnode(Node head, int num, int K)
+    {
+                                                    // your code here
+        if(K>num) return head;
+        
+        Node s=head;
+        Node sprev=null;
+                                                 // find previous from start
+        for(int i=1;i<K;i++)
+        {
+            sprev=s;
+            s=s.next;
+        }
+        
+        Node e=head;
+        Node eprev=null;
+                                                        // find previous from end
+        for(int i=1;i<num-K+1;i++)
+        {
+            eprev=e;
+            e=e.next;
+        }
+        
+                                                         //change previous of both if prev is not null
+        
+        if(sprev!=null)
+        {
+            sprev.next=e;
+        }
+        
+         if(eprev!=null)
+        {
+            eprev.next=s;
+        }
+        
+                                                   //now change the next terms by swapping
+        Node temp =s.next;
+        s.next=e.next;
+        e.next=temp;
+                  
+                                                  //previous and next value  are null if k=1,k=num now handel that
+        
+        if(K==1)
+        return head=e;
+        
+        if(K==num)
+        return head=s;
+        
+        return head;
+        
+    }
