@@ -1,0 +1,25 @@
+
+
+class Solution {
+    //Function to check if the linked list has a loop.
+    public static boolean detectLoop(Node head){
+       if(head == null)return false;
+                                                  //USING Floyd Cycle Detection  ALGORITHUM
+       Node slow=head;
+       Node fast=head;                            //TC-->O(N) SP--.O(1)
+       while(fast!=null && fast.next!= null){
+           fast=fast.next.next;
+           slow=slow.next;
+           if(slow==fast){
+               return true;
+           }
+       }
+       
+       
+       return false;
+        
+    }
+}
+
+//IDEA : in floyd algorithum we take two poiunter slow and fast and move them ast fast take 2 stapes
+//and slow take one step and where slow==fast  we syore that given linkedlist is loop/cyclic
