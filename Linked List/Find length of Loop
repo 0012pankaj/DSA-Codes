@@ -1,0 +1,71 @@
+//My FIRST APPROCH USING FLOYD LOOP DETECTING  ALGO.
+class Solution
+{
+    //Function to find the length of a loop in the linked list.
+    static int countNodesinLoop(Node head)
+    {
+        //Add your code here.
+        Node s= head;
+        Node fast=head;
+        while(fast!=null &&fast.next !=null){
+            s=s.next;
+            fast=fast.next.next;
+            if(s==fast){
+                break;
+            }
+        }
+        
+        if(fast == null || fast.next ==null) return 0;
+         Node ptr= head;
+         
+          Node itersec=head;
+         while(ptr != null && s!=null){
+             ptr=ptr.next;
+             s=s.next;
+             if(s==ptr){
+                 itersec=ptr;
+                 break;
+             }
+             
+         }
+         
+         int count = 1;
+         while (ptr.next!= itersec){
+             ptr=ptr.next;
+             count++;
+         }
+        return count;
+    }
+}
+
+.............................................................................
+MY SECOND APPROCH WITH UNIC LOGIG AND IDEA:- distence between fast and slow after intersection is actual length of loop
+
+class Solution
+{
+    //Function to find the length of a loop in the linked list.
+    static int countNodesinLoop(Node head)
+    {    //floyd's algo
+        Node s= head;
+        Node fast=head;
+       while(fast!=null && fast.next !=null)
+        {
+            s=s.next;
+            fast=fast.next.next;
+            
+            if(s==fast)      // intersection occure
+            {
+                s=s.next;
+                int count=1;
+                while(s!=fast)   // count upto reaching to fast
+                {
+                    s=s.next;
+                    count++;
+                }
+                return count;
+            }
+        }
+        
+        return 0;
+        
+}
