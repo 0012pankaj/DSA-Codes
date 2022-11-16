@@ -1,0 +1,38 @@
+
+class Solution
+{
+    //Function to remove a loop in the linked list.
+    public static void removeLoop(Node head){
+        // code here
+        // remove the loop without losing any nodes
+        
+         Node slow= head;
+        Node fast=head;
+        while(fast!=null && fast.next !=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                break;
+            }
+        }
+                                 //heandling unicq test cases
+        if(slow==fast)
+        {   slow=head;
+         
+           if(slow==fast)            //special case when our loop begain from head imp* to remember
+            { while(fast.next!=slow)  // not in gfg course thisis explain take help from YT @Ayushi Sharma
+                    fast=fast.next;
+            }else
+            {
+               while(slow.next != fast.next) // for all cases
+               {
+                slow=slow.next;
+                fast=fast.next;
+                }
+             }
+             
+             fast.next=null;
+        } 
+  
+    }
+}
