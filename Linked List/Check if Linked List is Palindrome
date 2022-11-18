@@ -1,0 +1,46 @@
+//TC-->O(n)  Sp-->O(1)  best approch
+class Solution
+{     public static Node halfreverselist(Node head)
+     {
+      
+        Node prev=null;
+        Node curr=head;
+        Node next=null;
+        while(curr != null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        
+        return prev;
+     }
+                                                                             //Function to check whether the list is palindrome.
+    boolean isPalindrome(Node head) 
+    {
+                                                                               //1.first find middle of linklist using two pointer approch.
+      Node slow=head;
+      Node fast=head;
+      
+      while(fast.next !=null && fast.next.next !=null)
+      {   slow=slow.next;
+          fast=fast.next.next;
+       }
+                                                                              //2.reverse the remainning list
+      
+      Node rev =  halfreverselist(slow.next);
+      Node currnt=head;
+      
+                                                                         //3.compare from start of orignal and head of halfreverselist 
+      while(rev != null){
+          
+          if(rev.data != currnt.data){
+              return false; 
+          }
+          rev=rev.next;
+          currnt=currnt.next;
+      }
+         return true;
+    }    
+}
+
