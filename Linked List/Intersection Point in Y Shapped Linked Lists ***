@@ -1,0 +1,27 @@
+class Intersect
+{ 
+    //Function to find intersection point in Y shaped Linked Lists.
+	int intersectPoint(Node head1, Node head2)
+	{  
+	    Node h1=head1;
+	    Node h2=head2;
+	    
+	    while(h1 != h2){
+	        h1= h1==null?head2:h1.next;
+	        h2= h2==null?head1:h2.next;
+	    }
+        
+        return h1.data;
+	}
+}
+
+
+//Approch :
+//.To bring h1 and h2 at same distance from null we use this short approch and best approch
+//1.we itrate h1 and h2 upto which we get h1==h2 
+// when any of h1,h2 reaches null we put them at starting of other lit; (if h1 is at nul of list1 we put it on list2 starting samw with h2
+//at some time we get them moving parllel with same distance from null and when the got same value we return any of them
+//HELP FROM TUF*
+
+// many people do lenthy code 
+by first find difference of list and start bla bla bla ..given on gfg is long approch
