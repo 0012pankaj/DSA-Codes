@@ -1,0 +1,49 @@
+//best and optimised approch Tc-->O(n) sp-->(1)  it also done by hashmap but  given aproch is best
+
+class Clone {
+    //Function to clone a linked list with next and random pointer.
+    Node copyList(Node head) {
+        
+      Node cur=head;
+      Node t=null;
+                                                       //1.combine two list    
+      while(cur !=null){
+          t=cur.next;
+          cur.next=new Node(cur.data);
+          cur.next.next=t;
+          
+          cur=t;
+         }
+         
+         cur=head;
+                                              //2.setting random pointers of new node
+ 
+  while(cur !=null){
+      
+      cur.next.arb= (cur.arb!=null )?(cur.arb.next) : null ;
+      
+      cur=cur.next.next;
+  }
+  
+                                                   //3.seprating both the list
+  Node org=head;
+  Node copy=head.next;
+  Node nhead=copy;
+  while(org !=null && copy != null)
+  {   org.next= org.next !=null ? org.next.next : org.next;    //remeber this condition
+      copy.next= copy.next !=null ? copy.next.next : copy.next;  // //remeber this condition 
+      
+      org=org.next;
+      copy=copy.next;
+  }
+  
+  return nhead;
+  
+    }
+}
+//APPROCH:-
+1.insert new nodes in between nodes of orignal list
+2.make sure that they have data same as privious which is orignal
+3.point random points of new nodes using nodes of orignal
+4.at last seprate both orignal and copy * REMEMBER SOME CONDITIONS OTHERWISE NULL POINT EXCEPTION COME
+-->RETURN HEAD OF COPY NODE
