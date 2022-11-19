@@ -1,0 +1,32 @@
+   // return the head of intersection list
+    public static Node findIntersection(Node head1, Node head2)
+    {
+        // add your code here
+       
+        Node h1=head1;
+        Node h2=head2;
+       
+        HashSet<Integer> set=new HashSet<Integer>();
+        while(h2 !=null){
+            set.add(h2.data);
+            h2=h2.next;
+        }
+         Node nhead=new Node(-1);
+         Node curr=nhead;
+        while(h1 != null)
+        {
+            if(set.contains(h1.data))
+            { 
+                curr.next=h1;
+                  curr=curr.next;
+                
+            }
+            h1=h1.next;
+        }
+        curr.next=null;
+        
+        return nhead.next;
+    }
+    
+//Expected time complexity: O(m+n)
+//Expected auxiliary space: O(m+n)
