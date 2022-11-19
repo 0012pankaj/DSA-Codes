@@ -1,0 +1,145 @@
+class Solution
+{
+    //Function to sort a linked list of 0s, 1s and 2s.
+    static Node segregate(Node head)
+    {
+        
+        if(head==null || head.next ==null) return head;
+        Node curr= head;
+        Node zero=new Node(-1);
+        Node xzero=zero;
+        Node one=new Node(-11);
+        Node xone=one;
+        Node two=new Node(-22);
+        Node xtwo=two;
+        
+        while(curr !=null){
+            if(curr.data==0)
+            {
+                zero.next=curr;
+                zero=zero.next;
+            }
+             if(curr.data==1)
+            {
+                one.next=curr;
+                one=one.next;
+            }
+             if(curr.data==2)
+            {
+                two.next=curr;
+                two=two.next;
+            }
+            
+            curr=curr.next;
+        }
+       
+    //     if(xzero.next==null  && xone.next !=null && xtwo.next !=null){................................................. my aproch to hendel edge cases
+    //      one.next=xtwo.next;
+    //      two.next=null;
+    //      return xone.next;
+    //     }
+    //       if(xzero.next!=null  && xone.next == null && xtwo.next !=null){
+    //      zero.next=xtwo.next;
+    //      two.next=null;
+    //      return xzero.next;
+    //     }
+        
+    //      if(xzero.next!=null  && xone.next != null && xtwo.next ==null){
+    //      zero.next=xone.next;
+    //      one.next=null;
+    //      return xzero.next;
+    //     }
+    //   if(xzero.next!=null  && xone.next == null && xtwo.next ==null){
+    //      zero.next=null;
+    //      return xzero.next;
+    //     }
+    //     else if(xzero.next==null  && xone.next != null && xtwo.next ==null){
+    //      one.next=null;
+    //      return xone.next;
+            
+    //     }
+    //      else if(xzero.next==null  && xone.next == null && xtwo.next !=null){
+    //      two.next=null;
+    //      return xtwo.next;
+    //      }
+         
+    //       zero.next=xone.next;
+    //     one.next=xtwo.next;
+    //     two.next=null;
+        
+    //     return xzero.next; .................................................................my approch ends............................
+    
+    // for base cases we give condition to zero.....................................ryt aproch to hendel edge case .......................................
+    //(if one is empty we conect directly to two else conect to one)
+    
+     if(xone.next!=null){
+         zero.next=xone.next;
+     }
+     else{
+         zero.next=xtwo.next;
+     }
+     one.next=xtwo.next;
+     two.next=null;
+     
+     head=xzero.next;
+     
+     return head;
+    }
+}
+
+
+..................................................for beter understending code........................
+Approch:-
+1.take three extra node for 0,1,2
+2.made three list having only 0,only 1,only 2
+3.merge them and keep in mind edge case to conect 0-->1 or 0-->2 if 1 is empty.
+ //Function to sort a linked list of 0s, 1s and 2s.
+    static Node segregate(Node head)
+    {
+        
+        if(head==null || head.next ==null) return head;
+        Node curr= head;
+        Node zero=new Node(-1);
+        Node xzero=zero;
+        Node one=new Node(-11);
+        Node xone=one;
+        Node two=new Node(-22);
+        Node xtwo=two;
+        
+        while(curr !=null){
+            if(curr.data==0)
+            {
+                zero.next=curr;
+                zero=zero.next;
+            }
+             if(curr.data==1)
+            {
+                one.next=curr;
+                one=one.next;
+            }
+             if(curr.data==2)
+            {
+                two.next=curr;
+                two=two.next;
+            }
+            
+            curr=curr.next;
+        }
+        
+         //(if one is empty we conect directly to two else conect to one)
+    
+     if(xone.next!=null){
+         zero.next=xone.next;
+     }
+     else{
+         zero.next=xtwo.next;
+     }
+     one.next=xtwo.next;
+     two.next=null;
+     
+     head=xzero.next;
+     
+     return head;
+    }
+    
+    TC-->O(n)  sp-->O(1)
