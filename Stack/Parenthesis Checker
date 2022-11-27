@@ -1,0 +1,42 @@
+
+  //Function to check if brackets are balanced or not.
+    static boolean ispar(String x)
+    {
+        // add your code here
+        Stack<Character> stk=new Stack<Character>();
+       int  i=0;
+        while(i<x.length())
+        {  
+             if(x.charAt(i)=='{' ||x.charAt(i)=='('||x.charAt(i)=='['){
+                 stk.push(x.charAt(i));
+             }
+             else if(x.charAt(i)=='}'){
+                 if(!stk.isEmpty() && stk.peek()=='{' ){
+                     stk.pop();
+                 }else{
+                     return false;
+                 }
+             }
+              else if(x.charAt(i)==')'){
+                 if(!stk.isEmpty() && stk.peek()=='('){
+                     stk.pop();
+                 }else{
+                     return false;
+                 }
+             } else if(  !stk.isEmpty() && x.charAt(i)==']'){
+                 if(stk.peek()=='['){
+                     stk.pop();
+                 }else{
+                     return false;
+                 }
+             }else
+             
+             return false;
+            
+            i++;
+        }
+        if(!stk.isEmpty()){
+             return false;
+        }
+       return true;
+    }
