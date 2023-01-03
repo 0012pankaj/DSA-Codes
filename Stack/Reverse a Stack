@@ -1,0 +1,47 @@
+...............................
+class Solution
+{   public static void  addbottom(Stack<Integer> s,int top)
+    { 
+        //base case
+        if(s.isEmpty())
+        {
+            s.push(top);
+            return;
+        }
+        
+        int prev =s.peek();
+        s.pop();
+         
+         //recursive call
+        addbottom(s,top);
+        
+        s.push(prev);
+        
+    }
+    
+  START-->  static void reverse(Stack<Integer> s)
+    {
+       // base case
+       if(s.isEmpty()){
+           return;
+       }
+       
+        int top=s.peek();
+        s.pop();
+        
+        //recursive call for remaning
+        
+        reverse(s);
+        
+        //after reverse add our top to bottom
+        addbottom(s,top);
+        
+        
+    }
+}
+
+.....................................
+Input:
+St = {3,2,1,7,6}
+Output:
+{6,7,1,2,3}
