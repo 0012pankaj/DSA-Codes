@@ -1,0 +1,56 @@
+// best approch with less itration and use index of hist array and Single stack to find ans.
+//also done by using 2 extra array of left smaller and right smaller
+class Solution
+{
+    //Function to find largest rectangular area possible in a given histogram.
+    public static long getMaxArea(long hist[], long n) 
+    {
+        //step 1:
+        Stack<Integer> s=new Stack<Integer>();
+        
+        int tp;
+        long areawith_tp=0;
+        long maxarea=0;
+        
+        //step2:
+        //2.1
+        int i=0;
+        while(i<n)
+        {  //2.2
+           if(s.isEmpty() || hist[s.peek()] <= hist[i]){
+            s.push(i++);
+               
+           }//2.3
+           else{
+               tp=s.pop();
+               
+               areawith_tp=hist[tp]*(s.isEmpty() ? i : i-s.peek()-1) ;
+               
+               maxarea=Math.max(maxarea,areawith_tp) ;
+               
+           }
+               
+         }
+        //step 3:
+        while(!s.isEmpty()){
+             tp=(int)s.pop();
+               
+               areawith_tp=hist[tp]*(s.isEmpty() ? i : i-s.peek()-1) ;
+               
+               maxarea=Math.max(maxarea,areawith_tp) ;
+        }
+        
+        return maxarea;
+}
+}
+
+
+Approch:---
+
+1Create an empty stack.
+2.Start from the first bar, and do the following for every bar hist[i] where ‘i‘ varies from 0 to n-1
+    If the stack is empty or hist[i] is higher than the bar at top of the stack, then push ‘i‘ to stack. 
+    If this bar is smaller than the top of the stack, then keep removing the top of the stack while the top of the stack is greater. 
+        Let the removed bar be hist[tp]. Calculate the area of the rectangle with hist[tp] as the smallest bar. 
+    For hist[tp], the ‘left index’ is previous (previous to tp) item in stack and ‘right index’ is ‘i‘ (current index).
+3.If the stack is not empty, then one by one remove all bars from the stack and do step (2.2 and 2.3) for every removed bar
