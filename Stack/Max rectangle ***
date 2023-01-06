@@ -1,0 +1,89 @@
+*/BEFORE DOING THIS MUST DO [Maximum Rectangular Area in a Histogram]
+
+que:
+Input:
+n = 4, m = 4
+M[][] = {{0 1 1 0},
+         {1 1 1 1},
+         {1 1 1 1},
+         {1 1 0 0}}
+Output: 8
+Explanation: For the above test case the
+matrix will look like
+0 1 1 0
+1 1 1 1
+1 1 1 1
+1 1 0 0
+the max size rectangle is 
+1 1 1 1
+1 1 1 1
+and area is 4 *2 = 8.
+---------------------------------------------------------------------------------------------------------------------
+
+/*Complete the function given below*/
+class Solution {
+    
+    //maximum_histogram function
+    public static int maximum_histogram(int M[],int m){
+        
+        Stack<Integer> s= new Stack<Integer>();
+        int tp;
+        int  areawith_tp=0;
+        int maximumarea=0;
+        
+        int i=0;
+        while(i < m){
+             
+             if(s.isEmpty() || M[s.peek()] <= M[i]){
+                 s.push(i++);
+             }
+             else{
+                 tp=s.pop();
+                 
+                 areawith_tp=M[tp]*(s.isEmpty() ? i : (i-s.peek()-1)) ;
+                 
+                 maximumarea=Math.max(maximumarea,areawith_tp);
+             }
+
+        }
+        while(!s.isEmpty()){
+                tp=s.pop();
+                 
+                 areawith_tp=M[tp]*(s.isEmpty() ? i : i-s.peek()-1) ;
+                 
+                 maximumarea=Math.max(maximumarea,areawith_tp);
+         
+        }
+       
+       return maximumarea; 
+    }
+    
+    //Start---->
+    public int maxArea(int M[][], int n, int m) {
+         
+        int res=maximum_histogram(M[0],m);
+        
+        for(int i=1;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(M[i][j]==1){
+                    M[i][j]+=M[i-1][j];
+                }
+            }  
+            res=Math.max(res,maximum_histogram(M[i],m));
+        }
+        
+        return res;
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------
+APPROCH:
+--> we found maximum histogram of every row
+1.first we find maximum histogram of first row and then compair it result with other
+2.for next rows if element is = to 1 then add that alement with its previous elemnt col wise build histogram of every rowwith help of its upper row
+simply find  maximum area of histogram 
+[must go to  [Maximum Rectangular Area in a Histogram****************] ]
+or
+Run a loop to traverse through the rows.
+Now If the current row is not the first row then update the row as follows, if matrix[i][j] is not zero then matrix[i][j] = matrix[i-1][j] + matrix[i][j].
+Find the maximum rectangular area under the histogram, consider the ith row as heights of bars of a histogram. This can be calculated as given in this article Largest Rectangular Area in a Histogram
+Do the previous two steps for all rows and print the maximum area of all the rows.
