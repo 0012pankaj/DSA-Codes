@@ -1,0 +1,80 @@
+
+//User function Template for Java
+
+
+class Solution
+{ 
+                                      //Function to find if there is a celebrity in the party or not.
+    int celebrity(int M[][], int n)
+    {
+    
+    	                               	//step 1: put all in the persons in the stack(indexes)
+    	Stack<Integer> s=new Stack<Integer>();
+    	for(int i=0;i<n;i++)
+    	{
+    	    s.push(i);
+    	}
+    	
+    	                                 //Step 2:run a loop upto which we get only one element in stack
+    	while(s.size() > 1)
+    	{   
+    	    int a=s.pop();
+    	    int b=s.pop();
+    	    
+    	    if(M[a][b]==1){                  //checking if a knows b,then push b to steck else push a
+    	        s.push(b);
+    	    }else{
+    	        s.push(a);
+    	    }
+    	}
+    	
+                                      	//step 3: check the left person in stack is actualy a celebrity or not
+    	int celb =s.peek();
+    	
+    	//check row contains all zero
+    	int count1=0;
+    	for(int i=0;i<n;i++)
+    	{
+    	    if(M[celb][i]==0){
+    	        count1++;
+    	    }
+    	}
+    	if(count1 !=n){
+    	    return -1;
+    	}
+    	
+    	                              //check col contain all 1 except (x,x)
+    	int count2=0;
+    	for(int i=0;i<n;i++)
+    	{
+    	    if(M[i][celb]==1){
+    	        count2++;
+    	    }
+    	}
+    	
+    	if(count2 != n-1)
+    	{
+    	    return -1;
+    	}
+    	
+    	
+    	return celb;
+    }
+}
+----------------------------------------------
+put:
+N = 3
+M[][] = {{0 1 0},
+         {0 0 0}, 
+         {0 1 0}}
+Output: 1
+Explanation: 0th and 2nd person both
+know 1. Therefore, 1 is the celebrity. 
+..................................................................
+idea: 1.if x is celebrity (index) its row contain All 0's
+      2 and its column contain 1 except at (x,x) position 
+ Approch: we use STACK to store all values (index)and take top two values(pop()) and check if they knows(M[a][b]==1) 
+         (if a know b) means b may be a celebrity then push b back to stack
+         repeat this upto when we get last left element in stack
+         at last check that remaning one  in stack is acctually a celeb or not.
+         
