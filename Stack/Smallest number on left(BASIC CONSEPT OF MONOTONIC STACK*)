@@ -1,0 +1,40 @@
+//BASIC CONSEPT USE IN ALL MAIN QUECTION
+//User function Template for Java
+class Solution{
+    static List<Integer> leftSmaller(int n, int a[])
+    {  
+        Stack<Integer> s= new Stack<>();
+        List<Integer>  l=new ArrayList<Integer>();
+        
+      
+       l.add(-1);
+       s.push(a[0]);
+      
+      for(int i=1;i<n;i++){
+          
+          while(!s.isEmpty() && s.peek()>= a[i])
+          {
+              s.pop();
+          }
+          
+          if(s.isEmpty()){
+              l.add(-1);
+              
+          }else{
+              l.add(s.peek());
+          }
+          s.push(a[i]);
+      }
+        
+        return l;
+    }
+}
+
+----------------------------------------------------
+create a stack and array (for output)
+as it is left then put most left element in stack and -1 to array
+start itration i=1 to n
+1.if stack is not empty and stack top is > then current , pop() while stack got empty or we get smaller element
+2 after while loop check if stack empty there is no such smallest founs stor -1 
+else,stack peek is smallest one
+3 . push current value in stack.
