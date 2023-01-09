@@ -1,0 +1,36 @@
+
+ tc-->O(n)
+class solve{
+    
+    //Function to generate binary numbers from 1 to N using a queue.
+    static ArrayList<String> generate(int N)
+    {
+       Queue<String> q=new LinkedList<>();
+       
+       ArrayList<String> list= new ArrayList<>();
+        
+        q.add("1");
+       
+        for(int i=0;i<N;i++)
+        { 
+            String s=q.poll();
+            list.add(s);
+            
+            q.add(s+"0");
+            q.add(s+"1");
+
+        }
+        
+        return list;
+    }
+    
+}
+------------------------------------
+input:
+N = 5
+Output: 
+1 10 11 100 101
+Explanation: 
+Binary numbers from
+1 to 5 are 1 , 10 , 11 , 100 and 101.
+--------------------------
