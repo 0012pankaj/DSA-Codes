@@ -1,0 +1,70 @@
+Input:
+N = 9, K = 3
+arr[] = 1 2 3 1 4 5 2 3 6
+Output: 
+3 3 4 5 5 5 6 
+Explanation: 
+1st contiguous subarray = {1 2 3} Max = 3
+2nd contiguous subarray = {2 3 1} Max = 3
+3rd contiguous subarray = {3 1 4} Max = 4
+4th contiguous subarray = {1 4 5} Max = 5
+5th contiguous subarray = {4 5 2} Max = 5
+6th contiguous subarray = {5 2 3} Max = 5
+7th contiguous subarray = {2 3 6} Max = 6
+______________________________________________________________________________________
+class Solution {
+    static ArrayList<Integer> max_of_subarrays(int nums[], int n, int k) {
+   
+         Deque<Integer> dq=new ArrayDeque<Integer>();
+         ArrayList<Integer> list=new ArrayList<Integer>();
+  
+
+    
+
+  //loop 1:
+      for(int i=0;i<k;i++)
+      {    
+          while( !dq.isEmpty() && nums[dq.peekLast()]<= nums[i])
+          {
+              dq.removeLast();
+          }
+          dq.addLast(i);
+      }
+
+    list.add(nums[dq.peekFirst()]);
+
+  //loop 2:
+
+     for(int i=k;i<n;i++)
+      {    
+          while( !dq.isEmpty() && dq.peekFirst() <= i-k) 
+          dq.removeFirst();  
+
+
+          while( !dq.isEmpty() && nums[dq.peekLast()] <= nums[i])
+          {
+              dq.removeLast();
+          }
+
+          dq.addLast(i);
+          list.add(nums[dq.peekFirst()]);
+      }
+
+
+        return list;
+    }
+}
+___________________________________ #code with alisha                               
+/*Approch:- using sliding window  And Deque**
+1. we take 1 deque and run 2 loop 
+  loop 1: 0 - k
+    -->we store element one by one if any previous element which is present in deque is smaller then current
+      then remove all of them first and then add current element
+2. after loop 1 it contain largest/maximum at its peekfirst  deque-->  [first.......................................last]    
+
+3.loop 2:k- n
+  --> we check 2 condition with while loop
+        1.if element out of whindow present then remove them all 
+        2.before adding current element check if any previous element which is present in deque is smaller then current
+      then remove all of them first and then add current element   
+ (DONT COFUSE WE USE INDEX TO STORE IN DEQUE INSTEAD OF ELEMENT IT HELP TO REMOVE (i-k)th ELEMENT from deque easily)
