@@ -1,0 +1,27 @@
+
+//Tc:O(n)  SP:O(n)
+
+class BinaryTree
+{   
+    static void preOrder(Node root,ArrayList<Integer> L)
+    {
+        if(root == null)
+       {
+           return;
+           
+       }
+       
+          L.add(root.data);
+        preOrder(root.left,L);
+        preOrder(root.right,L);   
+       
+    }
+   
+    static ArrayList<Integer> preorder(Node root)
+    {  
+        ArrayList<Integer> L=new ArrayList<Integer>(); 
+        preOrder(root,L);
+        return L;
+    }
+
+}
