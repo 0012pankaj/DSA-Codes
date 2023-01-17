@@ -1,0 +1,29 @@
+
+class Solution {
+    // Function to return a list containing the inorder traversal of the tree
+    
+    
+    static void inorder(Node root,ArrayList<Integer> L)
+    {
+        if(root == null)
+       {
+           return;
+           
+       }
+       
+         //MAIN LOGIC [LEFT ROOT RIGHT}
+         inorder(root.left,L);
+         L.add(root.data);
+         inorder(root.right,L);   
+       
+    }
+   
+   //start---> Tc-->O(n) Sp-->O(n)
+    static ArrayList<Integer>  inOrder(Node root)
+    {  
+        ArrayList<Integer> L=new ArrayList<Integer>(); 
+        inorder(root,L); //helping function
+        return L;
+    }
+
+}
