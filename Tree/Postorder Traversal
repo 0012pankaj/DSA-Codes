@@ -1,0 +1,25 @@
+
+
+class Tree
+{
+    static void postorder(Node root,ArrayList<Integer> L)
+    {
+        if(root== null){
+            return;
+        }
+        
+        //logic [left right root]
+        postorder(root.left,L);
+          postorder(root.right,L);
+          L.add(root.data);
+          
+    }
+    //start  Tc-->O(n) Sp-->O(n)
+    ArrayList<Integer> postOrder(Node root)
+    {
+         ArrayList<Integer> L=new ArrayList<Integer>();
+         postorder(root,L); //Helping function
+         
+         return L;
+    }
+}
