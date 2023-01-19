@@ -1,0 +1,33 @@
+
+class Tree
+{    public static void helper(Node root ,int level,ArrayList<Integer> list)
+    {
+        if(root == null)
+        return;
+        
+       if(level==list.size())
+       {
+           list.add(root.data);
+         
+       }
+       
+       helper( root.left ,level+1,list);
+       helper( root.right ,level+1,list);
+       
+      
+     }
+ 
+ ArrayList<Integer> list =new ArrayList<Integer>();
+  
+    ArrayList<Integer> leftView(Node root)
+    {  
+         ArrayList<Integer> list =new ArrayList<Integer>();
+        helper(root,0,list);
+        return list;
+    }
+}  //Tc-->O(n) Space-->O(n)
+
+
+/* we use helper function and ArrayList to store data
+idea: if reach at a level first time only than we can add data otherwise not add data 
+At wvwry recursion call level increase #Striver*/
