@@ -1,0 +1,52 @@
+
+class Solution
+{   
+   //Start----->
+    static ArrayList <Integer> levelOrder(Node node) 
+    {
+      
+        ArrayList<Integer> list=new ArrayList<Integer>();
+         if(node==null)
+       {
+           return list;
+       }
+        //Step:1
+       Queue<Node> q=new LinkedList<>();
+       q.add(node);
+       
+       //step2
+       while(! q.isEmpty())
+       {        //2.1
+               Node curr=q.poll();
+               list.add(curr.data);
+               //2.2
+               if(curr.left!=null){
+                  q.add(curr.left);}
+                //2.3
+              if(curr.right !=null){
+                 q.add(curr.right);}
+           
+       }
+       
+       return list;
+       
+       
+    }
+}
+//tc-->O(n) Sp-->O(n)
+/* in level order traversel OR all the quesction s in which level or der traversel us used
+we USE [QUEUE Data structure]
+Approch:-
+1.we create a queue And add root node to it 
+2.run a while loop upto which q get empty
+ in loop 2.1.first pop the top value and add to thi answer list
+ and check 2.2.if left of current bode is pressent then add that to q 
+ and then 2.3 . check right of current if present that add that in que
+
+
+
+
+
+
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(n)
