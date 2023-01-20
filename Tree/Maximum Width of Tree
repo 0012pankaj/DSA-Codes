@@ -1,0 +1,32 @@
+
+class Solution {
+   
+    int getMaxWidth(Node root) {
+        
+      
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        
+        int maxcount=0;
+        while(!q.isEmpty())
+        {
+            int count=q.size();
+            maxcount=Math.max(maxcount,count);
+            
+            for(int i=0;i<count;i++)
+            {
+               Node cur=q.poll();
+               
+               if(cur.left!=null) q.add(cur.left);
+               
+               if(cur.right!=null) q.add(cur.right);
+            }
+            
+        }
+        
+        return maxcount;
+    }
+}
+/* we follow line by line level order treversel logic
+   during finding size of queue at each level we find max size alse  
+   Tc-->O(n) Sp-->th(max width of level) or O(n)*/
