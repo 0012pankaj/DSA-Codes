@@ -1,0 +1,29 @@
+
+class Tree
+{                           //use logic of finding height of tree except point 1,2
+    public static int helper(Node node)
+    {
+        if(node==null) return 0;
+        
+       int lh=helper(node.left);
+       if(lh==-1 ) return -1;
+       
+       int rh=helper(node.right);
+       if(rh==-1 ) return -1;
+       
+                                              // 1.if any of these height is n0t balanced THEY RETURN -1 
+       if(Math.abs(lh-rh)>1) return -1;          //2.main key ward to check balance
+       
+       return 1+Math.max(lh,rh);
+        
+    }
+    
+
+    //START------------>
+    boolean isBalanced(Node root)
+    {
+        return helper(root) != -1;
+    }
+}
+
+---------------------------------------#stiver
