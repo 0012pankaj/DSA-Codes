@@ -1,0 +1,33 @@
+
+class Solution{
+    
+    public static void helper(Node node,int level,ArrayList<Integer> list)
+    {
+                                                   //we take value from each value once so, we use list size which increase acc. to level
+        if(level==list.size())
+        {
+            list.add(node.data);
+        }
+        
+                                                      //if theyb ask for rightview then call for right is firstthen left
+        if(node.right !=null)  helper(node.right,level+1,list);
+        if(node.left !=null)   helper(node.left,level+1,list);
+        
+    }
+    
+    
+    //START--->
+    ArrayList<Integer> rightView(Node node) {
+    
+    ArrayList<Integer> list=new ArrayList<Integer>();
+    if(node== null)
+    {
+        return list;
+    }
+    
+    helper( node,0,list);
+    
+    return list;
+    }
+}
+
