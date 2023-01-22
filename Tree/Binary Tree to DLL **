@@ -1,0 +1,28 @@
+
+class Solution
+{                                                 // declare previous and head in global
+    Node prev=null,head=null;
+   
+                                               //Inorder -->[left root right] calls follow this structure
+    Node bToDLL(Node root)
+    {  
+        if(root==null) return null;           //base case
+         
+                                            //left
+        bToDLL(root.left);
+        
+                                          //root calculate
+        if(prev==null){ head=root; }
+        else{
+            root.left=prev;
+            prev.right=root;
+        }
+        prev=root;                          //made current root as prev for next root
+        
+        //right call
+        bToDLL( root.right);
+        
+        
+      return head;
+    }
+}                                          //Tc-->O(n) Sp-->O(h)
