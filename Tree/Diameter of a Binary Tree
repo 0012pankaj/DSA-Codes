@@ -1,0 +1,40 @@
+The diameter of a tree (sometimes called the width) is the number of nodes on the longest
+path between two end nodes. The diagram below shows two trees each with diameter nine, the
+leaves that form the ends of the longest path are shaded (note that there is more than one 
+path in each tree of length nine, but no path longer than nine nodes). 
+_______________________________________________________________________--
+class Solution {
+                                            // Function to return the diameter of a Binary Tree.
+    
+    int  dia=0;
+
+     public  int  findhight(Node root){
+          if(root==null) return 0;
+
+         int lh=findhight(root.left);
+         int rh=findhight(root.right);
+
+         dia=Math.max(dia,lh+rh);                       //we can also write here(lh+rh+1) insted of +1 in return(dia+1)
+                                                //extar line than max hight which help us to calculate diameter
+
+         return 1+Math.max(lh,rh);
+
+     }
+     
+     //START---->
+    int diameter(Node root) {
+     
+         findhight(root);
+         
+         return dia+1;                             //we add 1 because in gfg the count node in there hight but in leetcode the consider edge
+    }
+    
+     
+}
+
+/*Approch:- O(n) 
+we follow the idea of max hight code
+1.we find maximum height at every node 
+2. on other side i compare sum of (left max height and right max hight )at each node and find maximum sum 
+which is our actual diameter*/
+
