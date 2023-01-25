@@ -1,0 +1,39 @@
+
+class Tree 
+{   static int empty=-1;
+    //Function to serialize a tree and return a list containing nodes of tree.
+	public void serialize(Node root, ArrayList<Integer> list) 
+	{ 
+	      if(root ==null)
+	     {
+	      list.add(empty);
+	      return;
+	         
+	     }
+	      
+	      list.add(root.data);
+	      
+	      serialize(root.left,list);
+	      serialize(root.right,list);
+	      
+	}
+	
+	//Function to deserialize a list and construct the tree.
+	
+	 int i=0; //non static
+    public Node deSerialize(ArrayList<Integer> A)
+    { 
+        if(i==A.size()) return null;
+        
+        int val=A.get(i);
+        i++;
+        if(val==empty) return null;
+         
+         Node root=new Node(val);
+         
+         root.left=deSerialize(A);
+         root.right=deSerialize(A);
+         
+         return root;
+    }
+};
