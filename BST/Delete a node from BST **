@@ -1,0 +1,46 @@
+class Tree {
+     
+     public static int minval(Node root)
+     {
+         Node curr=root.left;
+         int minvalu=root.data;
+         while(curr!=null)
+         {
+             minvalu=curr.data;
+             curr=curr.left;
+         }
+         
+         return minvalu;
+     }
+     
+    public static Node deleteNode(Node root, int x) {
+     
+     if(root==null) return root;
+     
+     if(root.data>x) 
+     root.left=deleteNode(root.left , x);
+     else if(root.data <x)
+     root.right=deleteNode(root.right , x);
+     else
+     {
+         if(root.left == null) return root.right;
+         if(root.right == null ) return root.left;
+         
+         root.data=minval(root.right);
+         
+         root.right=deleteNode(root.right , root.data);
+     }
+     
+     return root;
+    }
+    
+}
+/*Approch:-
+.we first search value if match we folow three steps:
+1.check if itd left is null then return right.
+2.check if itd right is null then return left.
+3.**if(its both left and right are not null) then.
+   i.we replace the value of current node(which need to delet) with
+    its nearest minimum value which is found in its right's subtree's
+    left view last node.
+  ii. after replacing value we we delet that last node.
