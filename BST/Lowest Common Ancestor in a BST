@@ -1,0 +1,24 @@
+
+
+/* Idea: we find a point where one of them lies in left and one of them lies in right and return that point*/
+class BST
+{   
+    //Function to find the lowest common ancestor in a BST. 
+	Node LCA(Node root, int p, int q)
+	{
+         if(root==null) return null;
+         int curr=root.data;
+         //check weather both of them lies in right
+          if(curr < p && curr < q) 
+          return LCA(root.right,p, q);
+
+         //check weather both of them lies in left
+          if(curr > p && curr > q) 
+          return  LCA(root.left,p, q);
+
+         //if both of them not lies in left or right it means
+         //one lies in left and one lied in right
+           return root; 
+    }
+    
+}
