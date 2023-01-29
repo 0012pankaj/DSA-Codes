@@ -1,0 +1,29 @@
+Given the root of a binary tree. Check whether it is a BST or not.
+Note: We are considering that BSTs can not contain duplicate Nodes.
+A BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+ 
+ ___________________________________________________
+public class Solution
+{    
+     public boolean helper(Node root,long Imax,long Imin)
+    {
+        if(root==null) return true;
+        if(root.data>=Imax || root.data <=Imin) return false;
+
+        return helper( root.left,root.data,Imin) && helper(root.right ,Imax,root.data);
+    }
+    
+    //Function to check whether a Binary Tree is BST or not.
+    boolean isBST(Node root)
+    { 
+        return  helper(root,Long.MAX_VALUE,Long.MIN_VALUE);  
+      
+    }
+}
+
+/*given rage -2^31 <= Node.val <= 2^31 - 1 so take Long
+Idea:we consider a range at each node that left node is lie in (long min value ---to current node) and right node is lie in ( current node---to long max value)*/
