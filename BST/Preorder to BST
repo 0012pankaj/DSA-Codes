@@ -1,0 +1,24 @@
+Given an array arr[] of N nodes representing preorder traversal of some BST. You have to build the exact BST from it's given preorder traversal. 
+In Pre-Order traversal, the r
+__________________________________________________
+    public static  Node helper(int[] pre,int upperbound,int [] i)
+    {   
+        if(i[0] == pre.length || pre[i[0]] > upperbound) return null;
+        Node node =new Node(pre[i[0]++]);
+        node.left=helper(pre,node.data,i);
+        node.right=helper(pre,upperbound,i);
+
+        return node; 
+    }
+    
+public static Node post_order(int pre[], int size) 
+{    return  helper(pre,Integer.MAX_VALUE,new int[]{0});
+     
+} 
+
+
+// /* Apperoch:- tc-->O(n) sp--->O(1)
+// Idea: we consider an uperbound which is Integer.max value
+// when we want to add node at left then upper bound is taken as its current value
+// when we want add node at right then than the upper bond is not change 
+// //we use index to itreate an array */
