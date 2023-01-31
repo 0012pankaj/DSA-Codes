@@ -1,0 +1,36 @@
+
+class Solution
+{ 
+     Node first=null,prev=null,second=null;
+     
+         public void findNode(Node root)
+         {  
+             if(root==null) return;
+                                                                     //inorder[left root right]
+             findNode( root.left);
+            if(prev!=null && prev.data > root.data )                        //if previous value is greater than current then  previous is our that first node  
+            {
+                if(first==null)                                   //if first is null means no first node is found yet
+                { 
+                    first=prev;                                    //then assighn first prev ti first node
+                }
+                second=root;      
+            }
+             prev=root;                                              //made current root as previous for next itration
+
+             findNode(root.right);
+         }
+         
+   //START________________>
+    public Node correctBST(Node root){
+       
+        findNode(root);                                             //finding those two node using inoder treversel
+       int temp=first.data;                                        //swaping values of those node
+       first.data=second.data;
+       second.data=temp; 
+       
+       return root;
+    }    
+    
+    
+}
