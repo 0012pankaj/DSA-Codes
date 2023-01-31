@@ -1,0 +1,61 @@
+Given a Binary Tree, find the vertical traversal of it starting from the leftmost level to the rightmost level.
+If there are multiple nodes passing through a vertical line, then they should be printed as they appear in level order traversal of the tree.//User function Template for Java
+_____________________________________________________________________________________________-
+class Pair{
+    Node node;
+    int hd;
+    Pair(Node n,int h)
+    {
+        node=n;
+        hd=h;
+    }
+}
+
+                                           //Function to find the vertical order traversal of Binary Tree.
+class Solution
+{
+  
+    static ArrayList <Integer> verticalOrder(Node root)
+    {  //use level order traversal
+       ArrayList<Integer> ans=new ArrayList<Integer>();
+       
+       Queue<Pair> q=new LinkedList<>();
+       Map<Integer,ArrayList<Integer>> Mp =new TreeMap<>();
+       
+       q.add(new Pair(root,0));                               //root hd leel is 0
+       
+       while(!q.isEmpty() )                                  //HD--->vertival level which is taken as -2 -1 0 1 2 horizontaly
+       {
+           Pair p=q.poll(); Node curr=p.node; int HD=p.hd;
+           
+           if(Mp.containsKey(HD))  Mp.get(HD).add(curr.data);
+           else 
+           {
+               ArrayList<Integer> list=new ArrayList<Integer>();
+               list.add(curr.data);
+               Mp.put(HD,list);
+           }
+           
+           if(curr.left!=null) q.add(new Pair(curr.left,HD-1));
+           if(curr.right!=null) q.add(new Pair(curr.right,HD+1));
+           
+       }
+       
+         for(Map.Entry<Integer,ArrayList<Integer>> p:Mp.entrySet())
+         {
+             ArrayList<Integer> l=p.getValue();
+             for(int x:l)
+                ans.add(x);
+             
+         }
+         
+         
+         return ans;
+    }
+}
+
+Idea:-we give horizontal distance HD from 0 left side - and right side + of root with 0 --> [-2 -1 0 1 2]
+Approch:-we use TreeMap store HD and Nodes at that HD  at last TreeMap Sort that HD in ascending order
+and we can print easily 
+alsr use level order traversal to store value 
+and from current root when we go left we do HD -1 and when we go right Hd +1
