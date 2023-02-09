@@ -1,0 +1,102 @@
+1.//recursive approch-------------------->
+import java.util.*;
+public class code
+  {   public static int fibo(int n){
+        if(n>=1) return n;
+       
+       return fibo(n-1)+fibo(n-2);
+       }
+      
+    public static void main(String[] args) {
+    
+      int n=4;
+     int x= fibo(n);
+    System.out.println(x);
+    }
+  }
+  
+  //Memoization---------------------->
+  
+  import java.util.*;
+ 
+public class code
+  {   public static int fibo(int n,int[] dp){
+        if(n>=1) return n;
+                                                    //step 3: check value of current call is already present or not
+        if(dp[n]!=-1) return dp[n];
+                                                     //step 2: store calls in dp
+       return dp[n]=(fibo(n-1,dp)+fibo(n-2,dp));
+       }
+      
+    public static void main(String[] args) {
+    
+      int n=4;
+
+                                                       //step 1: ctrate a Dp array size n+1
+      int dp[]=new int[n+1];
+      Arrays.fill(dp,-1);
+
+     int x= fibo(n,dp);
+    System.out.println(x);
+    }
+  }
+  tc-->O(n)
+  sc-->o(n)+O(n)
+  
+  //fabonacci Tabular----------------->
+  
+  import java.util.*;
+
+public class code
+  { 
+    public static void main(String[] args) {
+    
+      int n=5;
+      //step 1:
+      int dp[]=new int[n+1];
+      Arrays.fill(dp,-1);
+
+      //Step2:.base condition to noramal form
+      dp[0]=0;
+      dp[1]=1;
+
+      //step 3: function call to loop
+      for(int i=2;i<n+1;i++)
+      {
+        dp[i]=dp[i-1]+dp[i-2];
+      }
+     //last block contain answer
+      System.out.println(dp[n]);
+
+    }
+  }
+  
+  tc-->o(n)
+  sc-->o(n)
+  
+  //space optimal approch------------>
+  
+  public class code
+  { 
+    public static void main(String[] args) {
+    
+      int n=5;
+      
+     int  pre2=0;
+     int  pre1=1;
+     int pre=0;  
+      for(int i=2;i<n+1;i++)
+      {
+         pre=pre1+pre2;
+        pre2=pre1;
+        pre1=pre;
+      }
+     
+      System.out.println(pre);
+
+    }
+  }
+  
+  tc-->O(n)
+  sp-->O(1)
+  
