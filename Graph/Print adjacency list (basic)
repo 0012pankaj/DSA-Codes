@@ -1,0 +1,25 @@
+
+class Solution {
+    // Function to return the adjacency list for each vertex.
+    public ArrayList<ArrayList<Integer>> printGraph(
+        int V, ArrayList<ArrayList<Integer>> adj) {
+            
+             ArrayList<ArrayList<Integer>> adj1=new  ArrayList<ArrayList<Integer>>();
+             
+             
+             for(int i=0;i<V;i++)
+               adj1.add(new ArrayList<Integer>());
+               
+               
+               
+               for(int i=0;i<V;i++){
+                   adj1.get(i).add(i);
+                   for(int j=0;j<adj.get(i).size();j++){
+                       adj1.get(i).add(adj.get(i).get(j));
+                   }
+               }
+               
+            return adj1;
+     
+    }
+}
