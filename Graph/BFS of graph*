@@ -1,0 +1,35 @@
+class Solution {
+                                                                       // Function to return Breadth First Traversal of given graph.
+    public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+                                                                     // As it is bfs we require queue (level order)
+        
+        boolean[] visited=new boolean[V];
+        ArrayList<Integer> bfs=new ArrayList<Integer>();
+        Queue<Integer> q=new LinkedList<Integer>();
+                                                                           //As it is 0 baised we start from 0
+        q.add(0);
+        visited[0]=true;
+        
+        while(!q.isEmpty())
+        {
+            Integer node=q.poll();
+            bfs.add(node);
+                                                                                          //check and add its adjecent
+            for(Integer item:adj.get(node))
+            {
+                if(visited[item]==false)
+                {
+                    visited[item]=true;
+                    q.add(item);
+                }
+            }
+            
+        }
+        
+        return bfs;
+    }
+}
+
+_______________________________________________-
+Sp-->O(3n)
+Tc-->O(n)+O(2E)  E-->edges n-->node
