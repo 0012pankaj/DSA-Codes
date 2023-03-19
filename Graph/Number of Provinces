@@ -1,0 +1,49 @@
+
+class Solution {
+    static int numProvinces(ArrayList<ArrayList<Integer>> adj, int v) {
+       
+         //convert in to adjencylist first then solve
+        ArrayList<ArrayList<Integer>> adjl =new ArrayList<ArrayList<Integer>>();
+        
+        for(int i=0;i<v;i++)
+           adjl.add(new ArrayList<Integer>());
+
+        for(int i=0;i<v;i++){
+            for(int j=0;j<v;j++){
+                if(adj.get(i).get(j)== 1 && i!=j){
+                    adjl.get(i).add(j);
+                    adjl.get(j).add(i);
+                }
+
+            }
+        }   
+        
+        // adjency list is created
+      //main logic use count
+      boolean[] visited=new boolean[v]; //start from 1
+      int count=0;
+    
+      for(int i=0;i<v;i++)
+      {
+          if(visited[i]==false)
+          { 
+              count++;
+              calldfs(i,adjl,visited);
+          }
+      }
+
+         return count;  
+    }
+    
+     // DFS Function
+    public static void calldfs( int node,ArrayList<ArrayList<Integer>> adjl ,boolean[] visited)
+    {
+      visited[node]=true;
+      for(Integer item:adjl.get(node))
+      {   if(visited[item]==false)
+          {    calldfs(item,adjl,visited);  }
+               
+      }
+
+    }
+};
