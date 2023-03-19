@@ -1,0 +1,81 @@
+
+
+/* Approch:- use BFS algo use class pair for queue
+1.take a que and strore location of all rotten orange(2) with time 0.
+  take visited matrix mark 2 at rotten else zero.
+  count all fres orange(1) --> count1before
+
+2.aply bfs ,and use helper row and coll to move in 4 direction
+  take out location of rooten orange from queue and mouve around using loop.
+  if fresh find increase count1after  make it visited by putting 2/now become rotten
+  push current location in que with increase time with 1
+  * ewry time calculate maximum tim when we take out location from que  tc-->O(n*m) approx */ 
+  __________________________________________________________________________________________________________________________________________________________________
+  class pair{
+    int row,col,tim;
+    public pair(int row,int col,int tim)
+    {
+        this.row=row;
+        this.col=col;
+        this.tim=tim;
+    }
+}
+class Solution
+{
+    //Function to find minimum time required to rot all oranges. 
+    public int orangesRotting(int[][] grid)
+    {
+          int n=grid.length;
+        int m=grid[0].length;
+
+        Queue<pair> q=new LinkedList<>();
+        int  vis[][]=new  int[n][m];
+
+        int count1before=0;
+    
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                    q.add(new pair(i,j,0));
+                    vis[i][j]=2;
+                }else{
+                    vis[i][j]=0;
+                }
+
+                if(grid[i][j]==1) count1before++;
+            }
+        }
+        //---------------------------------------------------------------------------
+        //helper row,col
+        int[] rr={1,-1,0,0};
+        int[] cc={0,0,-1,1};
+
+        //bfs
+        int count1after=0;
+        int tm=0;
+        while(!q.isEmpty())
+        { 
+           int r=q.peek().row;
+           int c=q.peek().col;
+           int t=q.peek().tim;
+           tm=Math.max(t,tm);
+           q.remove();
+
+           for(int i=0;i<4;i++){
+               int xr=r+rr[i];
+               int xc=c+cc[i];
+               if(xr >=0 && xr<n && xc >=0 && xc<m && vis[xr][xc]==0 && grid[xr][xc]==1){
+                   count1after++;
+                   vis[xr][xc]=2;
+                   q.add(new pair(xr,xc,t+1));
+               }
+           }        
+          
+        }
+
+        if(count1before != count1after) return -1;
+
+        return tm;
+    }
+}
