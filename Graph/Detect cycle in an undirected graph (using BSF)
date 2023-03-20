@@ -1,0 +1,56 @@
+ // Function to detect cycle in an undirected graph.
+/*Approch if next node is visitid already and 
+its parent node is note current node that mean it is wisited by some other node 
+hence it is cyclic */
+______________________________________________________________________________________________
+//USING BFS ALGORETHUM
+class pair{
+    int node;
+    int nodeparent;
+    
+    pair(int node,int nodeparent){
+        this.node=node;
+        this.nodeparent=nodeparent;
+    }
+}
+class Solution {
+  
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        
+        boolean visited[]=new boolean[V];
+        
+        //loop for andel different components of graph    
+        for(int i=0;i<V;i++){
+            if(visited[i]==false)
+            {
+                if(detectcycle(i,adj,visited)) return true;
+            }
+        }
+    return false;
+    }
+    
+    public boolean detectcycle(int src,ArrayList<ArrayList<Integer>> adj,boolean[] visited)
+    {  //BFS ALGORETHUM
+        Queue<pair> q=new LinkedList<>();
+        q.add(new pair(src,-1));
+        
+        visited[src]=true;
+        
+        while(!q.isEmpty())
+        {
+            int noode=q.peek().node;
+            int par=q.peek().nodeparent;
+            q.remove();
+            
+            for(Integer item:adj.get(noode)){
+                if(visited[item]==false){
+                    visited[item]=true;
+                    q.add(new pair(item,noode));
+                }
+                else if(item != par) return true; //main condition
+            }
+            
+        }
+        return false;
+    }
+}
