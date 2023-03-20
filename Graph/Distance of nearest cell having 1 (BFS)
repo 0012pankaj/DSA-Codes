@@ -1,0 +1,43 @@
+ Queue <pair> q=new LinkedList<>();
+        int n=mat.length;
+        int m=mat[0].length;
+
+        int dis[][]=new int[n][m]; 
+        boolean visited[][]=new boolean[n][m];
+
+        for(int i=0;i<n;i++)
+        {for(int j=0;j<m;j++)
+          {
+            if(mat[i][j]==0){
+                q.add(new pair(i,j,0));
+                visited[i][j]=true;
+            }
+           }
+        }
+
+          //helper row and col for 4 direction
+          int[] rr={1,-1,0,0};
+          int[] cc={0,0,-1,1};
+
+          //bfs
+
+          while(!q.isEmpty())
+          {
+              int r=q.peek().first;
+              int c=q.peek().second;
+              int step=q.peek().third;
+              q.remove();
+              
+              dis[r][c]=step;
+              for(int i=0;i<4;i++){
+                  int xr=r+rr[i];
+                  int xc=c+cc[i];
+                      if(xr>=0 && xr<n && xc>=0 &&  xc<m && visited[xr][xc]==false){
+                          visited[xr][xc]=true;
+                          q.add(new pair(xr,xc,step+1));
+                      }
+
+              }
+          }
+
+    return dis;
