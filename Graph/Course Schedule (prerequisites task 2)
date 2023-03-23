@@ -1,0 +1,52 @@
+
+         int V=numCourses;
+       //1.convert to adjensey array ------------------------------
+
+       ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+       for(int i=0;i<V;i++){
+           adj.add(new ArrayList<Integer>());
+       }
+
+       for(int i=0;i<prerequisites.length;i++){
+
+           adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
+           //CHANGE IN INDEX COMPARE TO PREVIOUS AND RETURN TYPE IS ARRAY
+       }
+
+     // 2, top shot------------------
+      
+       //step1. indegree array
+        int[] indegre=new int[V];
+        for(int i=0;i<V;i++){
+            for(Integer item : adj.get(i)){
+                indegre[item]++;
+            }
+        }
+        
+        //step 2> prepare Q push elemet with indegre 0
+        Queue<Integer> q=new LinkedList<Integer>();
+        for(int i=0;i<V;i++){
+            if(indegre[i]==0) q.add(i);
+        }
+        
+        int ans[]=new int[V];
+        int x=0;
+        
+        //step 3 BSF
+        while(!q.isEmpty()){
+            int node=q.poll();
+            ans[x++]=node;
+           
+          
+            //reover inciming edge from there adjesent if any
+            //one of tham become 0 incoming edge then push to q
+            for(Integer it:adj.get(node)){
+                indegre[it]--;
+                if(indegre[it]==0) q.add(it);
+            }
+            
+        }
+        if(x == V) return ans;
+        int arr[] = {};
+        return arr;
+    }
