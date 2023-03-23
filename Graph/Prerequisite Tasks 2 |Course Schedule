@@ -1,5 +1,9 @@
 
-         int V=numCourses;
+class Solution
+{
+    static int[] findOrder(int V, int m, ArrayList<ArrayList<Integer>> prerequisites) 
+    {
+     
        //1.convert to adjensey array ------------------------------
 
        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
@@ -7,9 +11,9 @@
            adj.add(new ArrayList<Integer>());
        }
 
-       for(int i=0;i<prerequisites.length;i++){
+       for(int i=0;i<prerequisites.size();i++){
 
-           adj.get(prerequisites[i][1]).add(prerequisites[i][0]);
+           adj.get(prerequisites.get(i).get(1)).add(prerequisites.get(i).get(0));
            //CHANGE IN INDEX COMPARE TO PREVIOUS AND RETURN TYPE IS ARRAY
        }
 
@@ -49,4 +53,6 @@
         if(x == V) return ans;
         int arr[] = {};
         return arr;
+    
     }
+}
