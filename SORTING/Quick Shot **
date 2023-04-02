@@ -1,0 +1,99 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int[] arr={2,4,7,1,5,8};
+		for(int i=0;i<arr.length;i++){
+		    System.out.print(arr[i]+" ");
+		}
+		
+		Quickshot(arr,0,arr.length-1);
+		 System.out.println();
+		
+		for(int i=0;i<arr.length;i++){
+		    System.out.print(arr[i]+" ");
+		}
+		
+	}
+	
+	//Quickshot
+	public static void Quickshot(int[] arr,int s,int e){
+	    if(s>=e) return;
+	    
+	    int pivot=partition1(arr,s,e);
+	    
+	    	Quickshot(arr,s,pivot-1);
+	    	
+			Quickshot(arr,pivot+1,e);
+		
+	}
+	
+	//partition using lomuto partiotion
+	
+	public static int partition1(int[] arr,int s,int e){
+	    int pivot=arr[e];
+	    int pointer=s;
+	    
+	    for(int i=s;i<e;i++){
+	        
+	        if(arr[i]<pivot){
+	            int temp=arr[i];
+	            arr[i]=arr[pointer];
+	            arr[pointer]=temp;
+	            
+	            pointer++;
+	        }
+	    }
+	    
+	    int t=arr[e];
+	    arr[e]=arr[pointer];
+	    arr[pointer]=t;
+	    
+	    return pointer;
+	}
+	
+}
+
+//----------------------------------------------------------------lovebubber way
+
+	public static int partition2(int[] arr,int s,int e){
+	    int pivot=arr[s];
+	    
+	    int c=0;
+	    for(int i=1;i<e;i++){
+	        if(arr[i]<pivot){
+	            c++;
+	        }
+	    }
+	    
+	   int pivotindex=s+c;
+	   
+	   int t1=arr[pivotindex];
+	   arr[pivotindex]=arr[s];
+	   arr[s]=t1;
+	   
+	   //pivot is at its location
+	   int i=s;
+	   int j=e;
+	   
+	   while(i<pivotindex && j>pivotindex){
+	       
+	       while(arr[i]<=arr[pivotindex]) i++;
+	        while(arr[j]>arr[pivotindex]) j--;
+	        
+	       
+	        
+	         if(i<pivotindex && j>pivotindex){
+	                   int t2=arr[i];
+	                   arr[i]=arr[j];
+	                   arr[j]=t2;
+	                   i++;
+	                   j--;
+	         }            
+	   }
+	   
+	   
+	   return pivotindex;
+	   
+	}
