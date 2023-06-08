@@ -1,0 +1,71 @@
+import java.util.*;
+
+public class program{
+    public static void main(String args[]){
+        int []arr={7,8,3,1,2};
+        //1.bubble sort tc-->O(n2) [consept of PUSH LARGEST ELEMENT IN LAST,COMPARE ADJESENT ,SWAP MANY TIME]
+        bubble_Sort(arr,arr.length);
+
+        System.out.println();
+
+        //2.selection sort tc-->O(n2)[concept of FIND MINIMUM AND PUT IN STARTING i th POSITION,SWAP ONCE IN A LOOP]
+        selection_sort(arr,arr.length);
+
+        System.out.println();
+
+        //3.Insertion sort  tc-->O(n2)[concept of  SORTED AREA[0 -- i-1] AND UNSORTED AREA [i--n] , find right position and put]
+        Insertion_sort(arr,arr.length);
+
+    }
+    public static void display(int[] arr,int n){
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i]+" ");
+        }
+    }
+//-------------------------------------------------------------------------------------------------
+    public static void Insertion_sort(int[] arr,int n){
+        for(int i=1;i<n;i++){
+            int curr=arr[i];
+            int j=i-1;
+            while(j>=0 && arr[j]>curr){
+                arr[j+1]=arr[j];
+                j--;
+            }
+            arr[j+1]=curr;
+        }
+
+        display(arr, n);
+    }
+//--------------------------------------------------------------------------------------------------------
+    public static void selection_sort(int[] arr,int n){
+        for(int i=0;i<n-1;i++){
+            int min=i;
+            for (int j = i+1; j < n; j++) {
+                if(arr[min]>arr[j]){
+                    min=j;
+                }
+            }
+
+            int a=arr[min];
+            arr[min]=arr[i];
+            arr[i]=a;
+
+        }
+        display(arr, n);
+    }
+//-------------------------------------------------------------------------------------------------------------
+    public static void bubble_Sort(int[] arr,int n){
+
+        for(int i=0;i<n-1;i++){
+            for(int j=0;j<n-1-i;j++){
+                if(arr[j]>arr[j+1]){
+                    int a=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=a;
+                }
+            }
+        }
+        
+         display(arr,n);
+    }
+}
