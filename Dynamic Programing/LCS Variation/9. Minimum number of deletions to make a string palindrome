@@ -1,0 +1,61 @@
+
+class Solution 
+{          //Variation of LCS / LPS
+    int minDeletions(String str, int n)
+    {
+        int ans=n-longestPalindromeSubseq(str); //n-LPS(str)
+        return ans;
+    }
+    
+    //1.LPS code:-
+      public int longestPalindromeSubseq(String s) {
+        int ans=lcs(s,reverse(s));
+
+        return ans;
+    }
+
+    //3.LCS code:-
+     static int lcs( String s1, String s2){
+         int x=s1.length();
+         int y=s2.length();
+    
+        int dp[][]=new int[x+1][y+1];
+        
+        //fill first row and col with 0
+        for(int i=0;i<x;i++){
+            dp[i][0]=0;
+        }
+        for(int i=0;i<y;i++){
+            dp[0][i]=0;
+        }
+        
+        //main logic to fill remaining dp and get ans at dp[x][y] 
+        
+        for(int i=1;i<=x;i++){
+            for(int j=1;j<=y;j++){
+                
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j]=1+dp[i-1][j-1];
+                }else{
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        
+        return dp[x][y];
+        
+    }
+
+    //2.reverse code:-
+    static String reverse(String s){
+        String newS="";
+        for(int i=s.length()-1;i>=0;i--){
+            newS +=s.charAt(i);
+        }
+
+        return newS;
+    }
+} 
+/* Approch:-
+1.we find the LPS of given string using LCS 
+and subtarct LPS from Actual length of given string */
