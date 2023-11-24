@@ -1,0 +1,91 @@
+#leetcode :1312. Minimum Insertion Steps to Make a String Palindrome
+Given a string s. In one step you can insert any character at any index of the string.
+
+Return the minimum number of steps to make s palindrome.
+
+A Palindrome String is one that reads the same backward as well as forward.
+
+ 
+
+Example 1:
+
+Input: s = "zzazz"
+Output: 0
+Explanation: The string "zzazz" is already palindrome we do not need any insertions.
+Example 2:
+
+Input: s = "mbadm"
+Output: 2
+Explanation: String can be "mbdadbm" or "mdbabdm".
+Example 3:
+
+Input: s = "leetcode"
+Output: 5
+Explanation: Inserting 5 characters the string becomes "leetcodocteel".
+ 
+
+Constraints:
+
+1 <= s.length <= 500
+___________________________________________________________________________________________________________________________________________
+class Solution { // Variation of LCS/LPS 
+    public int minInsertions(String s) {
+        int ans=s.length()-longestPalindromeSubseq(s); //n-LPS(str)
+        return ans;
+    }
+
+     //1.LPS code:-
+      public int longestPalindromeSubseq(String s) {
+        int ans=lcs(s,reverse(s));
+
+        return ans;
+    }
+
+    //3.LCS code:-
+     static int lcs( String s1, String s2){
+         int x=s1.length();
+         int y=s2.length();
+    
+        int dp[][]=new int[x+1][y+1];
+        
+        //fill first row and col with 0
+        for(int i=0;i<x;i++){
+            dp[i][0]=0;
+        }
+        for(int i=0;i<y;i++){
+            dp[0][i]=0;
+        }
+        
+        //main logic to fill remaining dp and get ans at dp[x][y] 
+        
+        for(int i=1;i<=x;i++){
+            for(int j=1;j<=y;j++){
+                
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j]=1+dp[i-1][j-1];
+                }else{
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        
+        return dp[x][y];
+        
+    }
+
+    //2.reverse code:-
+    static String reverse(String s){
+        String newS="";
+        for(int i=s.length()-1;i>=0;i--){
+            newS +=s.charAt(i);
+        }
+
+        return newS;
+    }
+}
+
+/* CODE IS SAME FOR Minimum Insertion OR Minimum Deletion :-
+Approch:
+1.we find the LPS of given string using LCS 
+and subtarct LPS from Actual length of given string/
+ */
