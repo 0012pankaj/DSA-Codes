@@ -1,0 +1,84 @@
+#leetcode 494. Target Sum, //similar to count the no. subset with given diff
+                             only given statment is difference and confusing.
+
+You are given an integer array nums and an integer target.
+
+You want to build an expression out of nums by adding one of the symbols '+' and '-'
+before each integer in nums and then concatenate all the integers.
+
+For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and
+concatenate them to build the expression "+2-1".
+Return the number of different expressions that you can build, which evaluates to target.
+
+ 
+
+Example 1:
+
+Input: nums = [1,1,1,1,1], target = 3
+Output: 5
+Explanation: There are 5 ways to assign symbols to make the sum of nums be target 3.
+-1 + 1 + 1 + 1 + 1 = 3
++1 - 1 + 1 + 1 + 1 = 3
++1 + 1 - 1 + 1 + 1 = 3
++1 + 1 + 1 - 1 + 1 = 3
++1 + 1 + 1 + 1 - 1 = 3
+Example 2:
+
+Input: nums = [1], target = 1
+Output: 1
+ 
+
+Constraints:
+
+1 <= nums.length <= 20
+0 <= nums[i] <= 1000
+0 <= sum(nums[i]) <= 1000
+-1000 <= target <= 1000
+__________________________________________________________________________________________________________
+class Solution {  //similar to count the no. subset with given diff ..involve code of (count subset sum)
+    public int findTargetSumWays(int[] arr, int target) {
+         target=Math.abs(target);
+           //1. calculate req_sum
+        int arrsum=0;
+        for(int i :arr) arrsum+=i;
+        int Totalsum=(target+arrsum); //totla sum
+
+        if(Totalsum %2 ==1)return 0; //extra condition if odd not divide by 2
+        int req_sum=Totalsum/2;
+
+        //2.all CountSubsetSum with this sum 
+      return  CountSubsetSum(arr,arr.length,req_sum);
+    }
+
+
+     //2.CountSubsetSum code....
+    public int CountSubsetSum(int arr[],int N, int sum) 
+	{ 
+	     int  dp[][] =new int[N+1][sum+1]; //1.change bool->int
+        //  int mod=1000_000_007;                                            
+        for(int i=0;i<N+1;i++){
+             for(int j=0;j<sum+1; j++){
+                 if(i==0){
+                     dp[i][j]=0;
+                 }
+                 if(j==0){
+                      dp[i][j]=1;
+                 }
+             }
+         }
+         
+                                                                      
+         
+          for(int i=1;i<N+1;i++){
+             for(int j=0;j<sum+1; j++){  //2.change start j loop with 0 insted of 1
+                if(arr[i-1] <= j){  //pick            //not pick
+                        dp[i][j]=(dp[i-1][j-arr[i-1]] + dp[i-1][j]); //3.change || --> +
+                }else{
+                         dp[i][j]=dp[i-1][j];                  //not pick item is greater
+                }
+             }
+         }
+         
+         return dp[N][sum];
+	} 
+}
