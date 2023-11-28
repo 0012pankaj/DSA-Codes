@@ -1,0 +1,71 @@
+//gfg -Perfect Sum Problem
+
+Given an array arr of non-negative integers and an integer sum, the task is to count all subsets 
+of the given array with a sum equal to a given sum.
+
+Note: Answer can be very large, so, output answer modulo 109+7.
+
+Example 1:
+
+Input: 
+N = 6
+arr = [5, 2, 3, 10, 6, 8]
+sum = 10
+Output: 
+3
+Explanation: 
+{5, 2, 3}, {2, 8}, {10} are possible subsets.
+Example 2:
+Input: 
+N = 5
+arr = [2, 5, 1, 4, 3]
+sum = 10
+Output: 
+3
+Explanation: 
+{2, 1, 4, 3}, {5, 1, 4}, {2, 5, 3} are possible subsets.
+Your Task:  
+You don't need to read input or print anything. Complete the function perfectSum() 
+which takes N, array arr and sum as input parameters and returns an integer value.
+
+Expected Time Complexity: O(N*sum)
+Expected Auxiliary Space: O(N*sum)
+
+Constraints:
+1 ≤ N*sum ≤ 106
+0 ≤ arr[i] ≤ 106
+_________________________________________________________________________________________________________________________________--
+class Solution{  // similar to subset sum code with 3 miner changes. mod req in que
+     
+	public int perfectSum(int arr[],int N, int sum) 
+	{ 
+	     int  dp[][] =new int[N+1][sum+1]; //1.change bool->int
+         int mod=1000_000_007;                                            
+        for(int i=0;i<N+1;i++){
+             for(int j=0;j<sum+1; j++){
+                 if(i==0){
+                     dp[i][j]=0;
+                 }
+                 if(j==0){
+                      dp[i][j]=1;
+                 }
+             }
+         }
+         
+                                                                      
+         
+          for(int i=1;i<N+1;i++){
+             for(int j=0;j<sum+1; j++){  //2.change start j loop with 0 insted of 1
+                if(arr[i-1] <= j){  //pick            //not pick
+                        dp[i][j]=(dp[i-1][j-arr[i-1]] + dp[i-1][j])% mod; //3.change || --> +
+                }else{
+                         dp[i][j]=dp[i-1][j];                  //not pick item is greater
+                }
+             }
+         }
+         
+         return dp[N][sum];
+	} 
+
+
+}
