@@ -1,3 +1,31 @@
+
+Certainly! Here's the QuickSort algorithm summarized in short points:
+
+Algorithm: QuickSort
+Type: Divide and Conquer
+
+Steps:
+Choose a pivot element from the array.
+Partition the array into two sub-arrays:
+Elements less than the pivot.
+Elements greater than the pivot.
+Recursively apply QuickSort to the sub-arrays.
+
+Base Case:
+Arrays with 0 or 1 element are considered sorted.
+
+Time Complexity:
+Average Case: O(n log n)
+Worst Case: O(n^2) (can be mitigated with good pivot selection)
+Space Complexity:
+O(log n) due to the recursive call stack.
+
+In-Place Sorting:
+Yes, QuickSort can be implemented in-place.
+
+Stable Sorting:
+Generally not stable, but stability can be achieved with extra effort.
+_________________________________________________________________________________________________
 import java.util.*;
 public class Main
 {
