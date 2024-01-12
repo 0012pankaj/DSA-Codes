@@ -1,0 +1,67 @@
+785. Is Graph Bipartite? LEETCODE stvr
+
+______
+Return true if and only if it is bipartite.
+Example 1:
+
+
+Input: graph = [[1,2,3],[0,2],[0,1,3],[0,2]]
+Output: false
+Explanation: There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other.
+Example 2:
+
+
+Input: graph = [[1,3],[0,2],[1,3],[0,2]]
+Output: true
+Explanation: We can partition the nodes into two sets: {0, 2} and {1, 3}.
+_________________________________________________________________________________________
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        int v=graph.length;
+        int color[]=new int[v];
+        Arrays.fill(color,-1);
+         
+                                         //to handel multiple componenet case run loop on each vertex
+        for(int i=0;i<v;i++) 
+        {  
+           if(color[i]==-1 ){
+              if( checkcolor(graph,color,i)==false){
+               return false;
+             } 
+           }
+        }
+       return true; 
+
+    }
+       //BFS Treversal
+      public boolean checkcolor(int[][] graph ,int[] color,int node){
+         Queue<Integer> q=new LinkedList<>();
+         q.add(node);
+         color[node]=0;
+
+         while(!q.isEmpty()){
+             int nde=q.poll();
+
+             for(int item : graph[nde]){
+
+                 if(color[item]==-1){
+                     color[item]=1-color[nde];      //if 0 then 1 else 0  if 1
+                     q.add(item);
+                 }
+                 else if(color[item]==color[nde]){
+                     return false;
+                 }
+             }
+         }
+         return true;
+     }
+}
+------------------------------------------------------------------------------------------------------------
+/* Approch:-A graph is bipartite if the nodes can be partitioned into two independent sets A and B such that every edge in the graph connects a node in set A and a node in set B.
+
+[ Cyclic graph with odd Nodes are not Bipartite.
+with even Nodes it is Bipertite ]
+
+**.NO TO ADJESENT NODE HAVE SAME COLOR IF WE FILL GRAPH WITH 2 COLOR 0,1 ALTERNATELY.IF THIS CONDITION FALSE ANY WHERE THEN NO BIPERTITE.
+
+*/
