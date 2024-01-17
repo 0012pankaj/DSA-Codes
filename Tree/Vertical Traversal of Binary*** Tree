@@ -1,0 +1,130 @@
+
+{Que is litle change in gfg and leetcode but we generaly use pattern of GFG * similar to top view } 
+_____________________________________________________________________________________________________________
+GFG--->Given a Binary Tree, find the vertical traversal of it starting from the leftmost 
+level to the rightmost level.
+
+"If there are multiple nodes passing through a vertical line, then they should be printed as
+they appear in level order traversal of the tree."
+------------------------------------------------------------------------------------------------------
+//User function Template for Java
+class Pair{
+    Node node;
+    int hd;
+    Pair(Node n,int h)
+    {
+        node=n;
+        hd=h;
+    }
+}
+
+  //Function to find the vertical order traversal of Binary Tree.
+class Solution
+{
+  
+    static ArrayList <Integer> verticalOrder(Node root)
+    {  //use level order traversal
+       ArrayList<Integer> ans=new ArrayList<Integer>();
+       
+       Queue<Pair> q=new LinkedList<>();
+       Map<Integer,ArrayList<Integer>> Mp =new TreeMap<>();
+       
+       q.add(new Pair(root,0));  //root hd leel is 0
+       
+       while(!q.isEmpty() )   //HD--->vertival level which is taken as -2 -1 0 1 2 horizontaly
+       {
+           Pair p=q.poll(); Node curr=p.node; int HD=p.hd;
+           
+           if(Mp.containsKey(HD))  Mp.get(HD).add(curr.data);
+           else 
+           {
+               ArrayList<Integer> list=new ArrayList<Integer>();
+               list.add(curr.data);
+               Mp.put(HD,list);
+           }
+           
+           if(curr.left!=null) q.add(new Pair(curr.left,HD-1));
+           if(curr.right!=null) q.add(new Pair(curr.right,HD+1));
+           
+       }
+       
+         for(Map.Entry<Integer,ArrayList<Integer>> p:Mp.entrySet())
+         {
+             ArrayList<Integer> l=p.getValue();
+             for(int x:l)
+                ans.add(x);
+             
+         }
+         
+         
+         return ans;
+    }
+}
+--------------------------------------------------------------------------------------------------------------
+Leetcode------->
+Given the root of a binary tree, calculate the vertical order traversal of the binary tree.
+For each node at position (row, col), its left and right children will be at positions 
+(row + 1, col - 1) and (row + 1, col + 1) respectively. The root of the tree is at (0, 0).
+The vertical order traversal of a binary tree is a list of top-to-bottom orderings
+for each column index starting from the leftmost column and ending on the rightmost column. 
+
+"  There may be multiple nodes in the same row and same column. In such a case, sort these nodes 
+by their values."
+
+Return the vertical order traversal of the binary tree.
+========================================================================
+
+
+class Solution {
+    class Tuple{
+        int x;
+        int y;
+        TreeNode node;
+        Tuple(TreeNode n, int x, int y){
+            this.node=n;
+            this.x=x;
+            this.y=y;
+        }
+    }
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if(root==null) return list;
+        //treemap stores sorted values according to key which is the vertical axis and hoerizontal axis here
+        //we traverse and store in map the vertical and horizontal value and the noedes are sorted according to it
+        //we used priority Queue because again we wanted a sorted storage for node which occur at same x and y eg: right node of left 1st node and left node of right first node
+        TreeMap<Integer,TreeMap<Integer,PriorityQueue<Integer>>> map= new TreeMap<>();
+        Queue<Tuple> q= new LinkedList<>();
+        q.add(new Tuple(root,0,0));
+        while(!q.isEmpty()){
+            Tuple t=q.remove();
+            TreeNode n= t.node;
+            int x= t.x;//vertical level(x axis val)
+            int y=t.y;//horizontal level(y axis)
+            //adding empty lists
+            if(!map.containsKey(x)) map.put(x,new TreeMap<>());
+            if(!map.get(x).containsKey(y)) map.get(x).put(y,new PriorityQueue<>());
+            
+            //adding value
+            map.get(x).get(y).add(n.val);
+
+            //pushing children in queue like normal level order traversal
+            if(n.left!=null) q.add(new Tuple(n.left,x-1,y+1));
+            if(n.right!=null) q.add(new Tuple(n.right,x+1,y+1));
+        }
+
+        for(TreeMap<Integer,PriorityQueue<Integer>> ym:map.values()){
+            list.add( new ArrayList<>());
+            for(PriorityQueue<Integer> xy:ym.values()){
+                while(!xy.isEmpty()){
+                    list.get(list.size()-1).add(xy.remove());
+                }
+            }
+        }
+        return list;
+    }
+}
+
+Time Complexity: O(N*logN*logN*logN)
+--------------------------------------------------------------------------------------------------------
+
+we generaly use pattern of GFG so Folo that ***********************
