@@ -1,0 +1,69 @@
+Given a binary tree, print the bottom view from left to right.
+A node is included in bottom view if it can be seen when we look at the tree from bottom.
+
+                      20
+                    /    \
+                  8       22
+                /   \        \
+              5      3       25
+                    /   \      
+                  10    14
+
+For the above tree, the bottom view is 5 10 3 14 25.
+________________________________________________________________________________________________________
+** we made pair outside  solution class because our topview is static function
+** we made pair inside   solution class because our bottomview is non-static function
+** use BFS Approch
+**only small change between code of TOP VIEW and BOTTOM VIEW
+**. we use concept of horizontal distance nad tree Map that sort map on bases of Keys
+________________________________________________________________________________________________________-
+
+class Solution
+{     class Pair{
+       Node n;
+       int hor_dis;
+       public Pair(Node n,int hor_dis){
+           this.n=n;
+           this.hor_dis=hor_dis; 
+       }
+     }
+    //Function to return a list containing the bottom view of the given tree.
+    public ArrayList <Integer> bottomView(Node root)
+    {
+        // Code here
+         ArrayList<Integer> BttmView=new ArrayList<>();
+         if(root == null) return BttmView;
+         
+       Map<Integer,Integer> mp=new TreeMap<>();
+       Queue<Pair> q=new LinkedList<Pair>();
+       
+       q.add(new Pair(root,0));
+       
+       while(!q.isEmpty()){
+           Pair p=q.poll();
+           Node nn=p.n;
+           int hd=p.hor_dis;
+           
+             /<------------------------/main condition /no condition
+          mp.put(hd,nn.data);
+          
+           
+           if(nn.left!=null){
+               q.add(new Pair(nn.left,hd-1));
+           }
+            if(nn.right!=null){
+               q.add(new Pair(nn.right,hd+1));
+           }
+           
+       }
+       
+       //output--->
+      
+       
+       for(Map.Entry<Integer,Integer> m: mp.entrySet()){
+           BttmView.add(m.getValue());
+       }
+       
+       return BttmView;
+    }
+}
