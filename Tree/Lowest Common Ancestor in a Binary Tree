@@ -16,10 +16,12 @@ class Solution
         if(lca_left != null && lca_right != null)
         return root;
 
-        if(lca_left !=null)
+        if(lca_left !=null  && lca_right == null)
          return lca_left;
-        else 
+        else if(lca_left ==null  && lca_right != null)
         return lca_right;
+        else
+         return null;
         
 	}
 	
