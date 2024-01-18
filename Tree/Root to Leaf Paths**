@@ -1,0 +1,59 @@
+Given a Binary Tree of size N, you need to find all the possible paths from root node to 
+all the leaf node's of the binary tree.
+
+Example 1:
+
+Input:
+       1
+    /     \
+   2       3
+Output: 1 2 #1 3 #
+Explanation: 
+All possible paths:
+1->2
+1->3
+
+Example 2:
+
+Input:
+         10
+       /    \
+      20    30
+     /  \
+    40   60
+Output: 10 20 40 #10 20 60 #10 30 #
+
+//use backtracking---> same aproch in (Print Root to Node Path in a Binary Tree)
+--------------------------------------------------------------------------------------------------------
+class Tree{
+    public ArrayList<ArrayList<Integer>> Paths(Node root){
+        // Code here
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        if(root==null) return ans;
+        
+        helpPath(root,al,ans);
+        return ans;
+    }
+  
+    public void  helpPath(Node root, ArrayList<Integer> al,  ArrayList<ArrayList<Integer>> ans)
+    {
+        if(root == null) return;
+        
+        al.add(root.data);
+        
+        if(root.left == null && root.right==null)
+         ans.add(new ArrayList(al));
+        else{
+            helpPath(root.left,al,ans);
+            helpPath(root.right,al,ans);
+        }                                    //new ArrayList  is mandatory in adding  arraylist in arraylist ;
+       
+         al.remove(al.size()-1);  // removes the last element in arl recursivly
+        
+    }
+    
+}
+
+tc--> O(n)
