@@ -1,3 +1,4 @@
+for gfg only, Orignal Best Approch is Bellow---------->
 
 class Solution {
    
@@ -30,3 +31,47 @@ class Solution {
 /* we follow line by line level order treversel logic
    during finding size of queue at each level we find max size alse  
    Tc-->O(n) Sp-->th(max width of level) or O(n)*/
+------------------------------------------------------------------------
+ABOVE APPROCH IS NOT VALID IN EVERY PLATFORM IT IS ONLY ON GFG BUT WRIGHT APPROCH IS 
+*We do indexing at "each level" and find the max with= [rightmostidx-leftmostidx+1]
+*at leftside call we do [idx*2] , and right side [idx*2+1]
+same as stiver but indexing is at each level from 0
+
+
+class Solution {
+   class Pair{
+       TreeNode nod;
+       int idx;
+       public Pair(TreeNode nn,int ii){
+           nod=nn;
+           idx=ii;
+       }
+   }
+    public int widthOfBinaryTree(TreeNode root) {
+         Queue<Pair> q=new LinkedList<>();
+         q.add(new Pair(root,0));
+         int maxlen=0;
+
+         while(! q.isEmpty()){
+           int count=q.size();
+           Pair p=q.peek();  //consider peek as leftmostindx at each level
+           int left=p.idx;
+            for(int i=0;i<count;i++){
+                 Pair pp=q.poll();
+                 int right=pp.idx;
+                 maxlen = Math.max(maxlen , right-left+1);
+
+                 if(pp.nod.left !=null){
+                     q.add(new Pair(pp.nod.left,pp.idx*2));
+                 }
+                  if(pp.nod.right !=null){
+                     q.add(new Pair(pp.nod.right,pp.idx*2+1));
+                 }
+            }
+
+         }
+
+         return maxlen;
+
+    }
+}
