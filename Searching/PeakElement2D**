@@ -1,0 +1,47 @@
+class Solution {
+    public int maxEl(int[][] mat, int n, int m, int col) {
+        int maxi = -1;
+        int ind = -1;
+        for (int i = 0; i < n; i++) {
+            if (mat[i][col] > maxi) {
+                maxi = mat[i][col];
+                ind = i;
+            }
+        }
+        return ind;
+    }
+
+    public int[] findPeakGrid(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int low = 0;
+        int high = m - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int row = maxEl(mat, n, m, mid);
+            int left = mid - 1 >= 0 ? mat[row][mid - 1] : -1;
+            int right = mid + 1 < m ? mat[row][mid + 1] : -1;
+
+            if (mat[row][mid] > left && mat[row][mid] > right)
+                return new int[]{row, mid};
+            else if (mat[row][mid] < left)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+        return new int[]{-1, -1};
+    }
+}
+
+/* Approch:-
+we find  maximum element in each column  use bineary search to avoid unneceasory columns
+2. if we find mid as column now we find Maximum in that column and get its rowindex
+3. now find its left and right with edge case  
+4. check is it peak acc. to left right if true return.
+   if false then check if left is greater than that than move toverds left high = mid - 1;
+   if right is greater move towards right low = mid + 1;
+
+   tc-> O(n log(m)) time.
+
+ */
