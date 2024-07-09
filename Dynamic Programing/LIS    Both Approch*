@@ -1,0 +1,82 @@
+------------------------------------------(n^2) tc Approch----------------------------------------- 
+public class Lis {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr = { 10, 9, 2, 5, 3, 7, 101, 18 };
+		System.out.println(lis(arr));
+	}
+
+	public static int lis(int[] arr) {
+		int[] dp = new int[arr.length];
+		Arrays.fill(dp, 1);
+		for (int i = 1; i < dp.length; i++) {
+			for (int j = 0; j < i; j++) {
+				if (arr[j] < arr[i]) {
+					dp[i] = Math.max(dp[i], dp[j] + 1);
+				}
+
+			}
+
+		}
+
+		int ans = 1;
+		for (int i = 0; i < dp.length; i++) {
+			if (dp[i] > ans) {
+				ans = dp[i];
+			}
+
+		}
+		return ans;
+	}
+
+}
+------------------nlog(n)--Approch-----------------------------------------------------------------
+public class Lis_Nlong {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr = { 0, 8, 4, 2, 12, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
+		System.out.println(lis(arr));
+
+	}
+
+	private static int lis(int[] arr) {
+		// TODO Auto-generated method stub
+
+		int[] ans = new int[arr.length];
+		ans[0] = arr[0];
+		int len = 1;
+		for (int i = 1; i < arr.length; i++) {
+			if (arr[i] > ans[len - 1]) {
+				ans[len] = arr[i];
+				len++;
+			} else {
+				int idx = BinarySearch(ans, 0, len - 1, arr[i]);
+				ans[idx] = arr[i];
+			}
+
+		}
+		return len;
+
+	}
+                          //finding ceil just greater
+	private static int BinarySearch(int[] ans, int lo, int hi, int item) {
+		// TODO Auto-generated method stub
+		int idx = 0;
+		while (lo <= hi) {
+			int mid = (lo + hi) / 2;
+			if (ans[mid] >= item) {
+				idx = mid;
+				hi = mid - 1;
+			} else {
+				lo = mid + 1;
+			}
+
+		}
+
+		return idx;
+
+	}
+
+}
