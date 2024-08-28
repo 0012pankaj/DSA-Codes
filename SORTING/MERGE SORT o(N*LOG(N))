@@ -1,4 +1,4 @@
-public class Main             /*MERGE SORT o(N*LOG(N)) */
+public class Main             /*MERGE SORT o(N*LOG(N)) */ Divide and conquers algorithm
 {
 	public static void main(String[] args) {
 	    int[] arr={2,5,7,3,5,4};
